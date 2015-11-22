@@ -46,12 +46,6 @@
     <Folder Include="Contracts\" />
     <Folder Include="Services\" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj">
-      <Project>{f07de9c9-41b0-4ce3-8ce9-e99079e80a47}</Project>
-      <Name>Domain</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
