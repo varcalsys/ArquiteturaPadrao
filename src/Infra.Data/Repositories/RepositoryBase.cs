@@ -1,48 +1,59 @@
-﻿using Domain.Contracts.Repositories;
+﻿using System;
+using Domain.Contracts.Repositories;
 using Infra.Data.Context;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Infra.Data.Repositories
 {
     public class RepositoryBase<T> : IRepositoryBase<T> where T: class
     {
-        protected AppDbContext _DbContext;
+        protected readonly AppDbContext DbContext;
 
-        public RepositoryBase()
+        public RepositoryBase(AppDbContext dbContext)
         {
-            _DbContext = new AppDbContext();
-        }
+            this.DbContext = dbContext;
+        }    
 
         public void Add(T entity)
         {
-            _DbContext.Set<T>().Add(entity);
+            DbContext.Set<T>().Add(entity);
         }
 
         public void Update(T entity)
         {
-            _DbContext.Entry(entity).State = EntityState.Modified;
+            DbContext.Entry(entity).State = EntityState.Modified;
         }
 
         public void Delete(T entity)
         {
-            _DbContext.Set<T>().Remove(entity);
+            DbContext.Set<T>().Remove(entity);
         }
 
-        public IQueryable Get()
+        public T Find(Expression<Func<T, bool>> predicate)
         {
-            return _DbContext.Set<T>();
+            return DbContext.Set<T>().FirstOrDefault(predicate);
         }
 
-        public T Get(int id)
+        public T GetById(int id)
         {
-            return _DbContext.Set<T>().Find(id);
+            return DbContext.Set<T>().Find(id);
         }
 
-       
+        public IQueryable<T> Get(Expression<Func<T, bool>> predicate)
+        {
+            return DbContext.Set<T>().Where(predicate);
+        }
+
+        public IQueryable GetAll()
+        {
+            return DbContext.Set<T>();
+        }     
+
         public void Commit()
         {
-            _DbContext.SaveChanges();
+            DbContext.SaveChanges();
         }
     }
 }

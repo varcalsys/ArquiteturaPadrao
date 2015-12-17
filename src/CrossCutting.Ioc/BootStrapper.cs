@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using App.Contracts;
 using App.Services;
 using CrossCutting.Identity.Configuration;
@@ -11,6 +7,7 @@ using CrossCutting.Identity.Models;
 using Domain.Contracts.Repositories;
 using Domain.Contracts.Services;
 using Domain.Services;
+using Infra.Data.Context;
 using Infra.Data.Repositories;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -39,6 +36,9 @@ namespace CrossCutting.Ioc
 
             //Repository Layer
             container.Register(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
+
+            //Context
+            container.Register<AppDbContext, AppDbContext>();
         }
     }
 }

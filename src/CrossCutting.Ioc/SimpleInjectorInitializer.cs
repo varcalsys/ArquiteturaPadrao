@@ -8,12 +8,10 @@ using SimpleInjector;
 using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.Web.Mvc;
 using SimpleInjector.Integration.WebApi;
-using Web;
 using WebActivatorEx;
 
-
 [assembly: PostApplicationStartMethod(typeof(SimpleInjectorInitializer), "Initialize")]
-namespace Web
+namespace CrossCutting.Ioc
 {
     public static class SimpleInjectorInitializer
     {
