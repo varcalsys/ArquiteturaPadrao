@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CrossCutting.Ioc")]
+[assembly: AssemblyTitle("CrossCutting.IoC")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CrossCutting.Ioc")]
+[assembly: AssemblyProduct("CrossCutting.IoC")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("058e8973-758e-4b9e-a757-b5892f7288b7")]
+[assembly: Guid("bae23ebf-474f-4a05-acfb-42f27315e5c7")]
 
 // Version information for an assembly consists of the following four values:
 //

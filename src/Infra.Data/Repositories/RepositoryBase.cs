@@ -1,59 +1,75 @@
 ﻿using System;
-using Domain.Contracts.Repositories;
-using Infra.Data.Context;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using Domain.Contracts.Repositories.Core;
+using Infra.Data.Context;
 
 namespace Infra.Data.Repositories
 {
-    public class RepositoryBase<T> : IRepositoryBase<T> where T: class
+    public abstract class RepositoryBase<T>: IRepositoryBase<T> where T: class
     {
-        protected readonly AppDbContext DbContext;
+        protected AppDbContext Db;
 
-        public RepositoryBase(AppDbContext dbContext)
+        protected RepositoryBase(AppDbContext db)
         {
-            this.DbContext = dbContext;
-        }    
+            Db = db;
+        }
 
+       
         public void Add(T entity)
         {
-            DbContext.Set<T>().Add(entity);
+            Db.Set<T>().Add(entity);
         }
 
         public void Update(T entity)
         {
-            DbContext.Entry(entity).State = EntityState.Modified;
+            Db.Entry(entity).State = EntityState.Modified;
         }
 
         public void Delete(T entity)
         {
-            DbContext.Set<T>().Remove(entity);
+            Db.Set<T>().Remove(entity);
+        }
+
+        public T Find(int id)
+        {
+           return Db.Set<T>().Find(id);
         }
 
         public T Find(Expression<Func<T, bool>> predicate)
         {
-            return DbContext.Set<T>().FirstOrDefault(predicate);
+            return Db.Set<T>().FirstOrDefault(predicate);
         }
 
-        public T GetById(int id)
+        public IQueryable Get(Expression<Func<T, bool>> predicate)
         {
-            return DbContext.Set<T>().Find(id);
+            return Db.Set<T>().Where(predicate);
         }
 
-        public IQueryable<T> Get(Expression<Func<T, bool>> predicate)
+        public IQueryable Get()
         {
-            return DbContext.Set<T>().Where(predicate);
+            return Db.Set<T>();
         }
 
-        public IQueryable GetAll()
+        public IQueryable GetAsNoTracking(Expression<Func<T, bool>> predicate)
         {
-            return DbContext.Set<T>();
-        }     
+            return Db.Set<T>().Where(predicate).AsNoTracking();
+        }
+
+        public IQueryable GetAsNoTracking()
+        {
+            return Db.Set<T>().AsNoTracking();
+        }
 
         public void Commit()
         {
-            DbContext.SaveChanges();
+            Db.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            Db?.Dispose();
         }
     }
 }
