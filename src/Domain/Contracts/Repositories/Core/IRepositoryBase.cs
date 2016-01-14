@@ -14,12 +14,16 @@ namespace Domain.Contracts.Repositories.Core
         void Delete(T entity);
         T Find(int id);
         T Find(Expression<Func<T, bool>> predicate);
-        IQueryable Get(Expression<Func<T, bool>> predicate);
-        IQueryable Get();
-        IQueryable GetAsNoTracking(Expression<Func<T, bool>> predicate);
-        IQueryable GetAsNoTracking();
+        IQueryable<T> Get(Expression<Func<T, bool>> predicate);
+        IQueryable<T> Get();
+        IQueryable<T> GetAsNoTracking(Expression<Func<T, bool>> predicate);
+        IQueryable<T> GetAsNoTracking();
 
+        void Save();
+        void BeginTran();
         void Commit();
+        void RollBack();
+
 
         #region Async Methods
 

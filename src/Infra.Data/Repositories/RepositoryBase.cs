@@ -10,6 +10,8 @@ namespace Infra.Data.Repositories
     public abstract class RepositoryBase<T>: IRepositoryBase<T> where T: class
     {
         protected AppDbContext Db;
+        private DbContextTransaction _transaction;
+
 
         protected RepositoryBase(AppDbContext db)
         {
@@ -42,31 +44,48 @@ namespace Infra.Data.Repositories
             return Db.Set<T>().FirstOrDefault(predicate);
         }
 
-        public IQueryable Get(Expression<Func<T, bool>> predicate)
+        public IQueryable<T> Get(Expression<Func<T, bool>> predicate)
         {
             return Db.Set<T>().Where(predicate);
         }
 
-        public IQueryable Get()
+        public IQueryable<T> Get()
         {
             return Db.Set<T>();
         }
 
-        public IQueryable GetAsNoTracking(Expression<Func<T, bool>> predicate)
+        public IQueryable<T> GetAsNoTracking(Expression<Func<T, bool>> predicate)
         {
             return Db.Set<T>().Where(predicate).AsNoTracking();
         }
 
-        public IQueryable GetAsNoTracking()
+        public IQueryable<T> GetAsNoTracking()
         {
             return Db.Set<T>().AsNoTracking();
         }
 
-        public void Commit()
+        public void Save()
         {
             Db.SaveChanges();
         }
 
+        public void BeginTran()
+        {
+            _transaction = Db.Database.BeginTransaction();
+        }
+
+        public void Commit()
+        {
+            _transaction.Commit();
+        }
+
+
+        public void RollBack()
+        {
+            _transaction.Rollback();
+        }
+
+       
         public void Dispose()
         {
             Db?.Dispose();

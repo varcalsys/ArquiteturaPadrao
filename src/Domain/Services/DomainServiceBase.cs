@@ -33,21 +33,37 @@ namespace Domain.Services
             return _repositoryBase.Find(id);
         }
 
-        public IQueryable Get()
+        public IQueryable<T> Get()
         {
             return _repositoryBase.Get();
         }
 
-        public IQueryable GetAsNoTracking()
+        public IQueryable<T> GetAsNoTracking()
         {
             return _repositoryBase.GetAsNoTracking();
         }
 
-        
+
+        public void Save()
+        {
+            _repositoryBase.Save();
+        }
+
+        public void BeginTran()
+        {
+            _repositoryBase.BeginTran();
+        }
 
         public void Commit()
         {
             _repositoryBase.Commit();
         }
+
+        public void RollBack()
+        {
+            _repositoryBase.RollBack();
+        }
+
+        
     }
 }

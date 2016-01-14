@@ -12,9 +12,12 @@ namespace Domain.Contracts.Services.Core
         void Update(T entity);
         void Delete(T entity);
         T Find(int id);
-        IQueryable Get();
-        IQueryable GetAsNoTracking();
+        IQueryable<T> Get();
+        IQueryable<T> GetAsNoTracking();
+        void Save();
+        void BeginTran();
         void Commit();
+        void RollBack();
 
     }
 }
