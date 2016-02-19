@@ -11,6 +11,8 @@ namespace Web
         public void Configuration(IAppBuilder app)
         {
             SimpleInjectorInitializer.Initialize();
+
+            Configure(app);
         }
     }
 }

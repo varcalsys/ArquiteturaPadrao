@@ -12,13 +12,10 @@ namespace Domain.Contracts.Repositories.Core
         void Add(T entity);
         void Update(T entity);
         void Delete(T entity);
-        T Find(int id);
-        T Find(Expression<Func<T, bool>> predicate);
-        IQueryable<T> Get(Expression<Func<T, bool>> predicate);
-        IQueryable<T> Get();
-        IQueryable<T> GetAsNoTracking(Expression<Func<T, bool>> predicate);
-        IQueryable<T> GetAsNoTracking();
-
+        IQueryable<T> Get(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes );
+        IQueryable<T> GetAsNoTracking(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes);
+        IQueryable<T> GetAll(params Expression<Func<T,object>>[] includes);
+        IQueryable<T> GetAllAsNoTracking(params Expression<Func<T, object>>[] includes);
         void Save();
         void BeginTran();
         void Commit();
@@ -27,10 +24,7 @@ namespace Domain.Contracts.Repositories.Core
 
         #region Async Methods
 
-        //void AddAsync(T entity);
-        //void UpdateAsync(T entity);
-        //void DeleteAsync(T entity);
-        //T FindAsync(int id);
+        
 
         #endregion
     }

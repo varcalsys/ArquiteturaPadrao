@@ -28,22 +28,6 @@ namespace Domain.Services
             _repositoryBase.Delete(entity);
         }
 
-        public T Find(int id)
-        {
-            return _repositoryBase.Find(id);
-        }
-
-        public IQueryable<T> Get()
-        {
-            return _repositoryBase.Get();
-        }
-
-        public IQueryable<T> GetAsNoTracking()
-        {
-            return _repositoryBase.GetAsNoTracking();
-        }
-
-
         public void Save()
         {
             _repositoryBase.Save();

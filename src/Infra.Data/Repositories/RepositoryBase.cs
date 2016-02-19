@@ -19,76 +19,70 @@ namespace Infra.Data.Repositories
         }
 
        
-        public void Add(T entity)
+        public virtual void Add(T entity)
         {
             Db.Set<T>().Add(entity);
         }
-
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
             Db.Entry(entity).State = EntityState.Modified;
         }
-
-        public void Delete(T entity)
+        public virtual void Delete(T entity)
         {
             Db.Set<T>().Remove(entity);
-        }
-
-        public T Find(int id)
+        }    
+        public virtual IQueryable<T> Get(Expression<Func<T, bool>> predicate, params Expression<Func<T,object>>[] includes)
         {
-           return Db.Set<T>().Find(id);
-        }
 
-        public T Find(Expression<Func<T, bool>> predicate)
+            var query = Db.Set<T>().AsQueryable();
+
+            if (includes != null)
+            {
+                query = includes.Aggregate(query, (current, include) => current.Include(include));
+            }
+
+            return query.Where(predicate);
+        }
+        public virtual IQueryable<T> GetAsNoTracking(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
         {
-            return Db.Set<T>().FirstOrDefault(predicate);
+            return Get(predicate, includes).AsNoTracking();
         }
-
-        public IQueryable<T> Get(Expression<Func<T, bool>> predicate)
+        public virtual IQueryable<T> GetAll(params Expression<Func<T, object>>[] includes)
         {
-            return Db.Set<T>().Where(predicate);
-        }
+            var query = Db.Set<T>().AsQueryable();
 
-        public IQueryable<T> Get()
+            if (includes != null)
+            {
+                query = includes.Aggregate(query, (current, include) => current.Include(include));
+            }
+
+            return query;
+        }
+        public virtual IQueryable<T> GetAllAsNoTracking(params Expression<Func<T, object>>[] includes)
         {
-            return Db.Set<T>();
+            return GetAll().AsNoTracking();
         }
-
-        public IQueryable<T> GetAsNoTracking(Expression<Func<T, bool>> predicate)
-        {
-            return Db.Set<T>().Where(predicate).AsNoTracking();
-        }
-
-        public IQueryable<T> GetAsNoTracking()
-        {
-            return Db.Set<T>().AsNoTracking();
-        }
-
-        public void Save()
+        public virtual void Save()
         {
             Db.SaveChanges();
         }
-
-        public void BeginTran()
+        public virtual void BeginTran()
         {
             _transaction = Db.Database.BeginTransaction();
         }
-
-        public void Commit()
+        public virtual void Commit()
         {
             _transaction.Commit();
         }
-
-
-        public void RollBack()
+        public virtual void RollBack()
         {
             _transaction.Rollback();
-        }
-
-       
-        public void Dispose()
+        }    
+        public virtual void Dispose()
         {
             Db?.Dispose();
         }
+
+
     }
 }

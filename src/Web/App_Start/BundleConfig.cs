@@ -8,25 +8,38 @@ namespace Web
 {
     public class BundleConfig
     {
+
+
         public static void RegisterBundles(BundleCollection bundles)
         {
+            
             //js
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                "~/Scripts/jquery-{version}.js"));
+                    "~/Scripts/jquery-{version}.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/jquery-validate").Include(
+
+            var jqueryVal = new ScriptBundle("~/bundles/jquery-validate").Include(
                 "~/Scripts/jquery-validate.js",
-                "~/Scripts/jquery-validate.unobtrusive.js"));
+                "~/Scripts/jquery-validate.unobtrusive.js");
+
+            jqueryVal.Orderer = new AsIsBundleOrderer();
+            bundles.Add(jqueryVal);
+
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                 "~/Scripts/bootstrap.js"));
 
 
             //css
-            bundles.Add(new StyleBundle("~/Content/Site").Include(
+            var siteCss = new StyleBundle("~/Content/Site").Include(
                 "~/Content/bootstrap.css",
                 "~/Content/bootstrap-theme.css",
-                "~/Content/site.css"));
+                "~/Content/site.css");
+
+            siteCss.Orderer = new AsIsBundleOrderer();
+            bundles.Add(siteCss);
+
+            
 
 #if DEBUG
             BundleTable.EnableOptimizations = false;
@@ -34,6 +47,14 @@ namespace Web
             BundleTable.EnableOptimizations = true;
 #endif
 
+        }
+    }
+
+    public class AsIsBundleOrderer : IBundleOrderer
+    {
+        public IEnumerable<BundleFile> OrderFiles(BundleContext context, IEnumerable<BundleFile> files)
+        {
+            return files;
         }
     }
 }

@@ -11,9 +11,6 @@ namespace Domain.Contracts.Services.Core
         void Add(T entity);
         void Update(T entity);
         void Delete(T entity);
-        T Find(int id);
-        IQueryable<T> Get();
-        IQueryable<T> GetAsNoTracking();
         void Save();
         void BeginTran();
         void Commit();
