@@ -1,11 +1,11 @@
-﻿@using System.Web.Optimization
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/Site")
+    @Scripts.Render("~/bundles/modernizr");
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -27,7 +27,7 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
+        <!-- <hr /><hr /> -->
         <footer>
             <p>&copy; @DateTime.Now.Year - VarçalSys Soluções</p>
         </footer>

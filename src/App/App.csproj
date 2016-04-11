@@ -40,6 +40,7 @@
   <ItemGroup>
     <Folder Include="Contracts\" />
     <Folder Include="Services\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">

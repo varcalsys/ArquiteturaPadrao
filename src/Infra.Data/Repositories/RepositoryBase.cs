@@ -3,14 +3,16 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using Domain.Contracts.Repositories.Core;
+using Domain.Entities.Core;
 using Infra.Data.Context;
 
 namespace Infra.Data.Repositories
 {
-    public abstract class RepositoryBase<T>: IRepositoryBase<T> where T: class
+    public abstract class RepositoryBase<T>: IRepositoryBase<T> where T: EntityBase
     {
         protected AppDbContext Db;
         private DbContextTransaction _transaction;
+        private bool _disposed;
 
 
         protected RepositoryBase(AppDbContext db)
@@ -30,10 +32,22 @@ namespace Infra.Data.Repositories
         public virtual void Delete(T entity)
         {
             Db.Set<T>().Remove(entity);
-        }    
+        }
+
+
+        public virtual T GetById(int id, params Expression<Func<T, object>>[] includes)
+        {
+            var query = Db.Set<T>().AsQueryable();
+
+            if (includes != null)
+            {
+                query = includes.Aggregate(query, (current, include) => current.Include(include));
+            }
+
+            return query.SingleOrDefault(x=>x.Id == id);
+        }
         public virtual IQueryable<T> Get(Expression<Func<T, bool>> predicate, params Expression<Func<T,object>>[] includes)
         {
-
             var query = Db.Set<T>().AsQueryable();
 
             if (includes != null)
@@ -62,6 +76,8 @@ namespace Infra.Data.Repositories
         {
             return GetAll().AsNoTracking();
         }
+
+
         public virtual void Save()
         {
             Db.SaveChanges();
@@ -77,12 +93,24 @@ namespace Infra.Data.Repositories
         public virtual void RollBack()
         {
             _transaction.Rollback();
-        }    
-        public virtual void Dispose()
-        {
-            Db?.Dispose();
         }
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    Db?.Dispose();
+                }
 
+                _disposed = true;
+            }                         
+        }
     }
 }

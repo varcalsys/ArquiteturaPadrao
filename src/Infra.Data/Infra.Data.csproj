@@ -47,12 +47,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\AppDbContext.cs" />
+    <Compile Include="Mapping\Core\EntityBaseMapConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Mapping\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{beee6dd8-0ca0-45ce-9368-9c9e19408100}</Project>

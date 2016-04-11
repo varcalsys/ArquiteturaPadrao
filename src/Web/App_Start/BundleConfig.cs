@@ -8,19 +8,17 @@ namespace Web
 {
     public class BundleConfig
     {
-
-
         public static void RegisterBundles(BundleCollection bundles)
         {
-            
-            //js
+
+            #region Js
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                    "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js"));
 
 
             var jqueryVal = new ScriptBundle("~/bundles/jquery-validate").Include(
-                "~/Scripts/jquery-validate.js",
-                "~/Scripts/jquery-validate.unobtrusive.js");
+                "~/Scripts/jquery.validate.js",
+                "~/Scripts/jquery.validate.unobtrusive.js");
 
             jqueryVal.Orderer = new AsIsBundleOrderer();
             bundles.Add(jqueryVal);
@@ -30,16 +28,22 @@ namespace Web
                 "~/Scripts/bootstrap.js"));
 
 
-            //css
+            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
+                        "~/Scripts/modernizr-{version}.js"));
+
+            #endregion
+
+
+            #region Css
             var siteCss = new StyleBundle("~/Content/Site").Include(
-                "~/Content/bootstrap.css",
-                "~/Content/bootstrap-theme.css",
-                "~/Content/site.css");
+                   "~/Content/bootstrap.css",
+                   "~/Content/bootstrap-theme.css",
+                   "~/Content/site.css");
 
             siteCss.Orderer = new AsIsBundleOrderer();
-            bundles.Add(siteCss);
+            bundles.Add(siteCss); 
+            #endregion
 
-            
 
 #if DEBUG
             BundleTable.EnableOptimizations = false;

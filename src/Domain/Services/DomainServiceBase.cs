@@ -1,10 +1,11 @@
 ﻿using System.Linq;
 using Domain.Contracts.Repositories.Core;
 using Domain.Contracts.Services.Core;
+using Domain.Entities.Core;
 
 namespace Domain.Services
 {
-    public abstract class DomainServiceBase<T> : IDomainServiceBase<T>  where T : class
+    public abstract class DomainServiceBase<T> : IDomainServiceBase<T>  where T : EntityBase
     {
         private readonly IRepositoryBase<T> _repositoryBase;
 
