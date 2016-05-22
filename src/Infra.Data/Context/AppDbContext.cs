@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Infra.Data.Context
 {
     public class AppDbContext: DbContext
     {
 
-        public AppDbContext():base("Name=connectionString")
+        public AppDbContext():base("Name=DefaultConnection")
         {
                 
         }

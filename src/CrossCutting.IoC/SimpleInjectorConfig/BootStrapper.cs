@@ -1,5 +1,4 @@
-﻿using Domain.Contracts.Repositories.Core;
-using Infra.Data.Context;
+﻿using Infra.Data.Context;
 using SimpleInjector;
 
 namespace CrossCutting.IoC.SimpleInjectorConfig
@@ -8,7 +7,6 @@ namespace CrossCutting.IoC.SimpleInjectorConfig
     {
         public static void RegisterServices(Container container)
         {
-
             //container.Register<ApplicationDbContext>(Lifestyle.Scoped);
             //container.RegisterPerWebRequest<IUserStore<ApplicationUser>>(() => new UserStore<ApplicationUser>(new ApplicationDbContext()));
             //container.Register<ApplicationUserManager>(Lifestyle.Scoped);
