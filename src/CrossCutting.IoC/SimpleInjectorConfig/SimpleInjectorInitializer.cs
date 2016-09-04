@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
-using System.Web;
 using System.Web.Mvc;
-using Microsoft.Owin;
+using CrossCutting.IoC.Containers;
+using SharedKernel.DomainEvents;
 using SimpleInjector;
 using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.Web.Mvc;
@@ -10,30 +10,22 @@ namespace CrossCutting.IoC.SimpleInjectorConfig
 {
     public static class SimpleInjectorInitializer
     {
+        private static Container _container;
+
         public static void Initialize()
         {
-            var container = new Container();
-            container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
+            _container = new Container();
+            _container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
 
-            InitializeContainer(container);
+            InitializeContainer(_container);
+            _container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
+            _container.RegisterMvcIntegratedFilterProvider();
 
+            var dependencyResolver = new SimpleInjectorDependencyResolver(_container);
+            DependencyResolver.SetResolver(dependencyResolver);
+            DomainEvent.Container = new DomainEventContainer(dependencyResolver);
 
-            //container.RegisterPerWebRequest(() =>
-            //{
-            //    if (HttpContext.Current != null && HttpContext.Current.Items["owin.Enviroment"] == null && container.IsVerifying)
-            //    {
-            //        return new OwinContext().Authentication;
-            //    }
-
-            //    return HttpContext.Current.GetOwinContext().Authentication;
-            //});
-
-            container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
-
-            container.Verify();
-
-            DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
-
+            _container.Verify();
         }
 
         private static void InitializeContainer(Container container)

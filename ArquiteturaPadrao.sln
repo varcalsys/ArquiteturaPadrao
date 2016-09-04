@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - Presentation", "0 - Presentation", "{E6031F36-E33E-4C21-97C3-87078B9957ED}"
 EndProject
@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainTest", "test\DomainTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC5", "src\MVC5\MVC5.csproj", "{B69797BA-42EE-4B1F-AB3B-27268B7322ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedKernel", "src\SharedKernel\SharedKernel.csproj", "{558E2F6C-86E8-42E2-ABAD-733B7707981F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{B69797BA-42EE-4B1F-AB3B-27268B7322ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B69797BA-42EE-4B1F-AB3B-27268B7322ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B69797BA-42EE-4B1F-AB3B-27268B7322ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{558E2F6C-86E8-42E2-ABAD-733B7707981F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{558E2F6C-86E8-42E2-ABAD-733B7707981F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{558E2F6C-86E8-42E2-ABAD-733B7707981F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{558E2F6C-86E8-42E2-ABAD-733B7707981F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,5 +83,6 @@ Global
 		{69C5B9E8-2146-47E2-83FB-28970167D494} = {54354C89-B1C8-4CAD-9F4E-CE1C818504A7}
 		{6E3E9829-A2F3-42E2-8610-CE101DE98E8A} = {69C5B9E8-2146-47E2-83FB-28970167D494}
 		{B69797BA-42EE-4B1F-AB3B-27268B7322ED} = {E6031F36-E33E-4C21-97C3-87078B9957ED}
+		{558E2F6C-86E8-42E2-ABAD-733B7707981F} = {3DC42C41-6010-4373-A3AD-0F8463710005}
 	EndGlobalSection
 EndGlobal

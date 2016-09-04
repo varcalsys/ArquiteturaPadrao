@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Domain.Contracts.Repositories.Core;
+﻿using Domain.Contracts.Repositories.Core;
 using Domain.Contracts.Services.Core;
 using Domain.Entities.Core;
 
